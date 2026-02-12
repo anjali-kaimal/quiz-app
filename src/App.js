@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ConnectFour from './ConnectFour';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import Gallery from './Gallery';
+import PhotoGallery from './PhotoGallery';
 
 const dummyQuestions = [
   {
@@ -34,15 +33,14 @@ const dummyQuestions = [
 
 const correctAnswers = [0, 1, 1, 0, 0];
 
-// This component wraps your old App logic so we can use navigate
-function MainApp() {
+function App() {
   const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [showConnectFour, setShowConnectFour] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
   const [hearts, setHearts] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const heartPositions = [];
@@ -83,8 +81,17 @@ function MainApp() {
     setShowConnectFour(false);
     setStarted(false);
     setCurrentQuestion(0);
-    // Navigate to gallery after Connect Four ends
-    navigate('/gallery');
+  };
+
+  const handleShowGallery = () => {
+    setShowConnectFour(false);
+    setShowGallery(true);
+  };
+
+  const handleGalleryBack = () => {
+    setShowGallery(false);
+    setStarted(false);
+    setCurrentQuestion(0);
   };
 
   const handleRestart = () => {
@@ -92,6 +99,7 @@ function MainApp() {
     setCurrentQuestion(0);
     setShowPopup(false);
     setShowConnectFour(false);
+    setShowGallery(false);
   };
 
   const handleCloseError = () => {
@@ -115,7 +123,7 @@ function MainApp() {
         </div>
       ))}
 
-      {!showConnectFour ? (
+      {!showConnectFour && !showGallery ? (
         <div className="container">
           {!started ? (
             <>
@@ -146,9 +154,11 @@ function MainApp() {
             </div>
           )}
         </div>
-      ) : (
-        <ConnectFour onGameEnd={handleConnectFourEnd} />
-      )}
+      ) : showConnectFour ? (
+        <ConnectFour onGameEnd={handleConnectFourEnd} onShowGallery={handleShowGallery} />
+      ) : showGallery ? (
+        <PhotoGallery onBack={handleGalleryBack} />
+      ) : null}
 
       {showPopup && (
         <div className="popup-overlay">
@@ -179,18 +189,6 @@ function MainApp() {
         </div>
       )}
     </div>
-  );
-}
-
-// Wrap everything in Router
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainApp />} />
-        <Route path="/gallery" element={<Gallery />} />
-      </Routes>
-    </Router>
   );
 }
 
