@@ -39,7 +39,8 @@ function PhotoGallery({ onBack }) {
   return (
     <div className="photo-gallery-container">
       <div className="gallery-header">
-        <h2 className="gallery-title">Our Memories Together 💕</h2>
+        <h2 className="gallery-title">Happy Valentines day 💕</h2>
+        <p className="gallery-subtitle">Heres to a lifetime of beautiful memories together</p>
         <p className="gallery-subtitle">Click on any memory to reveal the photo</p>
       </div>
 
