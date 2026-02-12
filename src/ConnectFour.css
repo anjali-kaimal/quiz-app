@@ -30,22 +30,28 @@
   animation: fadeIn 0.5s ease-out;
   max-width: 600px;
   margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .connect-four-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
 }
 
 .connect-four-title {
-  font-size: 42px;
+  font-size: clamp(24px, 5vw, 42px);
   background: linear-gradient(135deg, #a8c0ff 0%, #c8b6ff 50%, #ffc8dd 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-weight: 700;
   letter-spacing: 2px;
+  line-height: 1.2;
 }
 
 .player-indicators {
@@ -97,6 +103,7 @@
   box-shadow: inset 0 4px 15px rgba(139, 123, 168, 0.2);
   overflow-x: auto;
   max-width: 100%;
+  flex-shrink: 0;
 }
 
 .board-row {
@@ -143,15 +150,20 @@
 
 @media (max-width: 768px) {
   .connect-four-container {
-    padding: 25px 15px;
+    padding: 20px 15px;
     max-width: 95%;
     border-radius: 30px;
+    max-height: 95vh;
+  }
+
+  .connect-four-header {
+    margin-bottom: 15px;
   }
 
   .connect-four-title {
-    font-size: 28px;
+    font-size: clamp(22px, 5vw, 28px);
     letter-spacing: 1px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
 
   .player-indicators {
@@ -199,8 +211,8 @@
 
   .redeem-prize-button {
     padding: 14px 30px;
-    font-size: 20px;
-    margin-top: 20px;
+    font-size: clamp(18px, 4vw, 20px);
+    margin-top: 15px;
     width: 90%;
     max-width: 300px;
   }
@@ -272,12 +284,17 @@
 
 @media (max-width: 480px) {
   .connect-four-container {
-    padding: 20px 10px;
+    padding: 15px 10px;
     border-radius: 25px;
+    max-height: 98vh;
+  }
+
+  .connect-four-header {
+    margin-bottom: 12px;
   }
 
   .connect-four-title {
-    font-size: 22px;
+    font-size: clamp(18px, 5vw, 22px);
     letter-spacing: 0.5px;
   }
 
@@ -326,8 +343,8 @@
 
   .redeem-prize-button {
     padding: 12px 25px;
-    font-size: 18px;
-    margin-top: 15px;
+    font-size: clamp(16px, 4vw, 18px);
+    margin-top: 12px;
     width: 95%;
   }
 
@@ -399,8 +416,16 @@
 }
 
 @media (max-width: 380px) {
+  .connect-four-container {
+    padding: 12px 8px;
+  }
+
+  .connect-four-header {
+    margin-bottom: 10px;
+  }
+
   .connect-four-title {
-    font-size: 20px;
+    font-size: clamp(16px, 5vw, 20px);
   }
 
   .board-cell {
@@ -423,7 +448,7 @@
   }
 
   .redeem-prize-button {
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
     padding: 10px 20px;
   }
 
@@ -442,7 +467,7 @@
   color: white;
   border: none;
   padding: 18px 40px;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   border-radius: 50px;
   cursor: pointer;
   font-weight: 700;
@@ -450,7 +475,7 @@
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-top: 30px;
+  margin-top: 20px;
   position: relative;
   overflow: hidden;
   display: block;
@@ -458,6 +483,7 @@
   margin-right: auto;
   animation: fadeIn 0.5s ease-out, pulse 2s ease-in-out infinite;
   border: 3px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
 }
 
 .redeem-prize-button::before {
