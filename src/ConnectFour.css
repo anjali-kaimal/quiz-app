@@ -95,6 +95,8 @@
   border-radius: 25px;
   display: inline-block;
   box-shadow: inset 0 4px 15px rgba(139, 123, 168, 0.2);
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .board-row {
@@ -139,19 +141,55 @@
   animation: winPulse 1s ease-in-out infinite;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .connect-four-container {
-    padding: 25px;
+    padding: 25px 15px;
+    max-width: 95%;
+    border-radius: 30px;
+  }
+
+  .connect-four-title {
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+
+  .player-indicators {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .player-indicator {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .color-dot {
+    width: 20px;
+    height: 20px;
+  }
+
+  .turn-text {
+    font-size: 16px;
+  }
+
+  .winner-text {
+    font-size: 20px;
+  }
+
+  .connect-four-board {
+    padding: 15px;
+    border-radius: 20px;
   }
 
   .board-cell {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .piece {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
   .board-row {
@@ -159,8 +197,243 @@
     margin-bottom: 6px;
   }
 
+  .redeem-prize-button {
+    padding: 14px 30px;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .envelope-container {
+    width: 90%;
+    max-width: 350px;
+    height: 450px;
+  }
+
+  .letter {
+    width: 280px;
+    height: 360px;
+    bottom: 70px;
+  }
+
+  .letter-content {
+    padding: 30px 20px;
+  }
+
+  .popup-emoji {
+    font-size: 60px;
+    margin-bottom: 15px;
+  }
+
+  .popup-image {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 15px;
+  }
+
+  .popup-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .popup-button {
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+
+  .envelope {
+    width: 350px;
+    height: 220px;
+  }
+
+  .envelope-body::before,
+  .envelope-body::after {
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-bottom: 120px solid #ffb3d1;
+  }
+
+  .envelope-body::after {
+    border-bottom-color: #ffc8dd;
+  }
+
+  .envelope-flap::before,
+  .envelope-flap::after {
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-top: 120px solid #ff9dbf;
+  }
+
+  .envelope-flap::after {
+    border-top-color: #ffaac9;
+  }
+}
+
+@media (max-width: 480px) {
+  .connect-four-container {
+    padding: 20px 10px;
+    border-radius: 25px;
+  }
+
   .connect-four-title {
-    font-size: 32px;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .player-indicators {
+    gap: 15px;
+  }
+
+  .player-indicator {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .color-dot {
+    width: 18px;
+    height: 18px;
+  }
+
+  .turn-text {
+    font-size: 14px;
+  }
+
+  .winner-text {
+    font-size: 18px;
+  }
+
+  .connect-four-board {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .board-cell {
+    width: 36px;
+    height: 36px;
+  }
+
+  .piece {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .board-row {
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+
+  .redeem-prize-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    margin-top: 15px;
+    width: 95%;
+  }
+
+  .envelope-container {
+    width: 95%;
+    max-width: 300px;
+    height: 400px;
+  }
+
+  .letter {
+    width: 240px;
+    height: 320px;
+    bottom: 60px;
+  }
+
+  .letter-content {
+    padding: 25px 15px;
+  }
+
+  .popup-emoji {
+    font-size: 50px;
+    margin-bottom: 12px;
+  }
+
+  .popup-image {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+  }
+
+  .popup-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+
+  .popup-button {
+    padding: 10px 25px;
+    font-size: 15px;
+  }
+
+  .envelope {
+    width: 300px;
+    height: 190px;
+  }
+
+  .envelope-body::before,
+  .envelope-body::after {
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid #ffb3d1;
+  }
+
+  .envelope-body::after {
+    border-bottom-color: #ffc8dd;
+  }
+
+  .envelope-flap::before,
+  .envelope-flap::after {
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #ff9dbf;
+  }
+
+  .envelope-flap::after {
+    border-top-color: #ffaac9;
+  }
+}
+
+@media (max-width: 380px) {
+  .connect-four-title {
+    font-size: 20px;
+  }
+
+  .board-cell {
+    width: 32px;
+    height: 32px;
+  }
+
+  .piece {
+    width: 26px;
+    height: 26px;
+  }
+
+  .board-row {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .connect-four-board {
+    padding: 10px;
+  }
+
+  .redeem-prize-button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .popup-title {
+    font-size: 18px;
+  }
+
+  .popup-image {
+    width: 120px;
+    height: 120px;
   }
 }
 
