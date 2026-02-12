@@ -12,7 +12,7 @@ const dummyQuestions = [
   {
     id: 2,
     question: "What's the most appropriate response to (ILY)+1?",
-    options: ["Me too", "f u"]
+    options: ["Me too", "fakkkkk u"]
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const dummyQuestions = [
   {
     id: 4,
     question: "Who's the poker champ from last time?",
-    options: ["Anjali", "Aadarsh"]
+    options: ["Anjaliii", "Aadarsh"]
   },
   {
     id: 5,
