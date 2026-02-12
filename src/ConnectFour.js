@@ -7,7 +7,7 @@ const COLS = 7;
 const USER_COLOR = '#6ba3ff'; // Blue for user
 const COMPUTER_COLOR = '#ff6b9d'; // Pink for computer
 
-function ConnectFour({ onGameEnd }) {
+function ConnectFour({ onGameEnd, onShowGallery }) {
   const [board, setBoard] = useState(Array(ROWS).fill(null).map(() => Array(COLS).fill(null)));
   const [currentPlayer, setCurrentPlayer] = useState('user');
   const [gameOver, setGameOver] = useState(false);
@@ -139,6 +139,9 @@ function ConnectFour({ onGameEnd }) {
 
   const handleClosePrizePopup = () => {
     setShowPrizePopup(false);
+    if (onShowGallery) {
+      onShowGallery();
+    }
   };
 
   useEffect(() => {
