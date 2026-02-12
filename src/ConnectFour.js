@@ -61,7 +61,6 @@ function ConnectFour({ onGameEnd }) {
           setGameOver(true);
           setWinner(player);
           if (player === 'user') {
-            // Show prize button after a short delay
             setTimeout(() => {
               setShowPrizeButton(true);
             }, 1000);
@@ -83,79 +82,57 @@ function ConnectFour({ onGameEnd }) {
   };
 
   const getComputerMove = () => {
-    // Strategy: Make moves that help user win, avoid blocking user's winning moves
     const availableCols = [];
     for (let col = 0; col < COLS; col++) {
-      if (board[0][col] === null) {
-        availableCols.push(col);
-      }
+      if (board[0][col] === null) availableCols.push(col);
     }
-
     if (availableCols.length === 0) return null;
 
-    // Check if user can win in next move - if so, let them
     for (let col of availableCols) {
       for (let row = ROWS - 1; row >= 0; row--) {
         if (board[row][col] === null) {
           const testBoard = board.map(r => [...r]);
           testBoard[row][col] = 'user';
           if (checkWinner(testBoard, row, col, 'user')) {
-            // User can win here, so computer plays elsewhere
             const otherCols = availableCols.filter(c => c !== col);
-            if (otherCols.length > 0) {
-              return otherCols[Math.floor(Math.random() * otherCols.length)];
-            }
+            if (otherCols.length > 0) return otherCols[Math.floor(Math.random() * otherCols.length)];
           }
           break;
         }
       }
     }
 
-    // Check if computer would win - avoid that move
     for (let col of availableCols) {
       for (let row = ROWS - 1; row >= 0; row--) {
         if (board[row][col] === null) {
           const testBoard = board.map(r => [...r]);
           testBoard[row][col] = 'computer';
           if (checkWinner(testBoard, row, col, 'computer')) {
-            // Computer would win, avoid this move
             const otherCols = availableCols.filter(c => c !== col);
-            if (otherCols.length > 0) {
-              return otherCols[Math.floor(Math.random() * otherCols.length)];
-            }
+            if (otherCols.length > 0) return otherCols[Math.floor(Math.random() * otherCols.length)];
           }
           break;
         }
       }
     }
 
-    // Make a random move that helps set up user's win
     return availableCols[Math.floor(Math.random() * availableCols.length)];
   };
 
-  const handleRedeemPrize = () => {
-    setShowPrizePopup(true);
-  };
-
-  const handleClosePrizePopup = () => {
-    setShowPrizePopup(false);
-  };
+  const handleRedeemPrize = () => setShowPrizePopup(true);
+  const handleClosePrizePopup = () => setShowPrizePopup(false);
 
   useEffect(() => {
     if (currentPlayer === 'computer' && !gameOver) {
       const timer = setTimeout(() => {
         const col = getComputerMove();
-        if (col !== null && dropPiece(col, 'computer')) {
-          setCurrentPlayer('user');
-        }
+        if (col !== null && dropPiece(col, 'computer')) setCurrentPlayer('user');
       }, 500);
       return () => clearTimeout(timer);
     }
   }, [currentPlayer, gameOver, board]);
 
-  const isCellWinning = (row, col) => {
-    return winningCells.some(([r, c]) => r === row && c === col);
-  };
+  const isCellWinning = (row, col) => winningCells.some(([r, c]) => r === row && c === col);
 
   return (
     <div className="connect-four-container">
@@ -189,17 +166,15 @@ function ConnectFour({ onGameEnd }) {
                 key={colIndex}
                 className={`board-cell ${cell ? 'filled' : ''} ${isCellWinning(rowIndex, colIndex) ? 'winning' : ''}`}
                 onClick={() => handleColumnClick(colIndex)}
-                style={{
-                  cursor: currentPlayer === 'user' && !gameOver ? 'pointer' : 'default'
-                }}
+                style={{ cursor: currentPlayer === 'user' && !gameOver ? 'pointer' : 'default' }}
               >
                 {cell && (
                   <div
-                    className="piece"
-                    style={{
-                      background: cell === 'user' ? USER_COLOR : COMPUTER_COLOR
-                    }}
-                  ></div>
+                    className="heart-piece"
+                    style={{ color: cell === 'user' ? USER_COLOR : COMPUTER_COLOR }}
+                  >
+                    ❤️
+                  </div>
                 )}
               </div>
             ))}
@@ -208,10 +183,7 @@ function ConnectFour({ onGameEnd }) {
       </div>
       
       {showPrizeButton && winner === 'user' && (
-        <button 
-          className="redeem-prize-button" 
-          onClick={handleRedeemPrize}
-        >
+        <button className="redeem-prize-button" onClick={handleRedeemPrize}>
           Redeem Your Prize
         </button>
       )}
@@ -222,11 +194,7 @@ function ConnectFour({ onGameEnd }) {
             <div className="letter">
               <div className="letter-content">
                 <div className="popup-emoji">❤️</div>
-                <img 
-                  src={prizeImage}
-                  alt="Prize" 
-                  className="popup-image"
-                />
+                <img src={prizeImage} alt="Prize" className="popup-image" />
                 <h2 className="popup-title">Unlimited hugs and kisses redeemed!</h2>
                 <button className="popup-button" onClick={handleClosePrizePopup}>
                   Laaav you
