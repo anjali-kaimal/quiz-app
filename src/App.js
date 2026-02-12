@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ConnectFour from './ConnectFour';
+import Gallery from './Gallery'; // <-- import gallery
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // <-- add router
 
 const dummyQuestions = [
   {
@@ -93,86 +95,96 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {hearts.map(heart => (
-        <div
-          key={heart.id}
-          className="heart"
-          style={{
-            left: `${heart.left}%`,
-            top: `${heart.top}%`,
-            animationDelay: `${heart.delay}s`,
-            animationDuration: `${heart.duration}s`
-          }}
-        >
-          💙
-        </div>
-      ))}
+    <Router>
+      <Routes>
+        <Route path="/gallery" element={<Gallery />} /> {/* new gallery page */}
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              {hearts.map(heart => (
+                <div
+                  key={heart.id}
+                  className="heart"
+                  style={{
+                    left: `${heart.left}%`,
+                    top: `${heart.top}%`,
+                    animationDelay: `${heart.delay}s`,
+                    animationDuration: `${heart.duration}s`
+                  }}
+                >
+                  💙
+                </div>
+              ))}
 
-      {!showConnectFour ? (
-        <div className="container">
-          {!started ? (
-            <>
-              <h1 className="title">Happy V day</h1>
-              <button className="start-button" onClick={handleStart}>
-                Ready to test your knowledge on us?
-              </button>
-            </>
-          ) : (
-            <div className="quiz-container">
-              <div className="question-number">
-                Question {currentQuestion + 1} of {dummyQuestions.length}
-              </div>
-              <h2 className="question-text">
-                {dummyQuestions[currentQuestion].question}
-              </h2>
-              <div className="options">
-                {dummyQuestions[currentQuestion].options.map((option, index) => (
-                  <button
-                    key={index}
-                    className="option-button"
-                    onClick={() => handleOptionClick(index)}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <ConnectFour onGameEnd={handleConnectFourEnd} />
-      )}
+              {!showConnectFour ? (
+                <div className="container">
+                  {!started ? (
+                    <>
+                      <h1 className="title">Happy V day</h1>
+                      <button className="start-button" onClick={handleStart}>
+                        Ready to test your knowledge on us?
+                      </button>
+                    </>
+                  ) : (
+                    <div className="quiz-container">
+                      <div className="question-number">
+                        Question {currentQuestion + 1} of {dummyQuestions.length}
+                      </div>
+                      <h2 className="question-text">
+                        {dummyQuestions[currentQuestion].question}
+                      </h2>
+                      <div className="options">
+                        {dummyQuestions[currentQuestion].options.map((option, index) => (
+                          <button
+                            key={index}
+                            className="option-button"
+                            onClick={() => handleOptionClick(index)}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <ConnectFour onGameEnd={handleConnectFourEnd} />
+              )}
 
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <div className="popup-content">
-              <div className="popup-emoji">🎉</div>
-              <h2 className="popup-title">Look who won yaaaayy!</h2>
-              <p className="popup-message">Lets play connect four now!!</p>
-              <button className="popup-button" onClick={handlePlayConnectFour}>
-                Play Connect 4
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              {showPopup && (
+                <div className="popup-overlay">
+                  <div className="popup">
+                    <div className="popup-content">
+                      <div className="popup-emoji">🎉</div>
+                      <h2 className="popup-title">Look who won yaaaayy!</h2>
+                      <p className="popup-message">Lets play connect four now!!</p>
+                      <button className="popup-button" onClick={handlePlayConnectFour}>
+                        Play Connect 4
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-      {showErrorPopup && (
-        <div className="popup-overlay">
-          <div className="popup error-popup">
-            <div className="popup-content">
-              <div className="popup-emoji">😠</div>
-              <h2 className="popup-title">Noppp, try again</h2>
-              <button className="popup-button" onClick={handleCloseError}>
-                Try Again
-              </button>
+              {showErrorPopup && (
+                <div className="popup-overlay">
+                  <div className="popup error-popup">
+                    <div className="popup-content">
+                      <div className="popup-emoji">😠</div>
+                      <h2 className="popup-title">Noppp, try again</h2>
+                      <button className="popup-button" onClick={handleCloseError}>
+                        Try Again
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
-      )}
-    </div>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
