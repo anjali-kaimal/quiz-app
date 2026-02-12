@@ -338,3 +338,126 @@
 .error-popup .popup-button:hover {
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.7);
 }
+
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+
+  .heart {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 30px 20px;
+    width: 95%;
+    max-width: 100%;
+    border-radius: 25px;
+  }
+
+  .title {
+    font-size: 36px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+  }
+
+  .start-button {
+    padding: 16px 40px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .question-number {
+    font-size: 14px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .question-text {
+    font-size: 24px;
+    margin-bottom: 30px;
+    line-height: 1.4;
+  }
+
+  .options {
+    gap: 12px;
+  }
+
+  .option-button {
+    padding: 18px 20px;
+    font-size: 17px;
+    border-radius: 20px;
+  }
+
+  .option-button:hover {
+    transform: translateX(5px) scale(1.01);
+  }
+
+  .option-button::before {
+    font-size: 18px;
+    right: 15px;
+  }
+
+  .popup {
+    padding: 35px 25px;
+    max-width: 90%;
+    border-radius: 30px;
+  }
+
+  .popup-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .popup-emoji {
+    font-size: 50px;
+    margin-bottom: 12px;
+  }
+
+  .popup-message {
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+
+  .popup-button {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .start-button {
+    padding: 14px 30px;
+    font-size: 18px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .option-button {
+    padding: 16px 18px;
+    font-size: 16px;
+  }
+
+  .popup-title {
+    font-size: 24px;
+  }
+
+  .popup-emoji {
+    font-size: 45px;
+  }
+}
