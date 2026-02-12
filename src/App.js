@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ConnectFour from './ConnectFour';
-import Gallery from './Gallery'; // <-- import gallery
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // <-- add router
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import Gallery from './Gallery';
 
 const dummyQuestions = [
   {
@@ -34,13 +34,15 @@ const dummyQuestions = [
 
 const correctAnswers = [0, 1, 1, 0, 0];
 
-function App() {
+// This component wraps your old App logic so we can use navigate
+function MainApp() {
   const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [showConnectFour, setShowConnectFour] = useState(false);
   const [hearts, setHearts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const heartPositions = [];
@@ -81,6 +83,8 @@ function App() {
     setShowConnectFour(false);
     setStarted(false);
     setCurrentQuestion(0);
+    // Navigate to gallery after Connect Four ends
+    navigate('/gallery');
   };
 
   const handleRestart = () => {
@@ -95,94 +99,96 @@ function App() {
   };
 
   return (
+    <div className="App">
+      {hearts.map(heart => (
+        <div
+          key={heart.id}
+          className="heart"
+          style={{
+            left: `${heart.left}%`,
+            top: `${heart.top}%`,
+            animationDelay: `${heart.delay}s`,
+            animationDuration: `${heart.duration}s`
+          }}
+        >
+          💙
+        </div>
+      ))}
+
+      {!showConnectFour ? (
+        <div className="container">
+          {!started ? (
+            <>
+              <h1 className="title">Happy V day</h1>
+              <button className="start-button" onClick={handleStart}>
+                Ready to test your knowledge on us?
+              </button>
+            </>
+          ) : (
+            <div className="quiz-container">
+              <div className="question-number">
+                Question {currentQuestion + 1} of {dummyQuestions.length}
+              </div>
+              <h2 className="question-text">
+                {dummyQuestions[currentQuestion].question}
+              </h2>
+              <div className="options">
+                {dummyQuestions[currentQuestion].options.map((option, index) => (
+                  <button
+                    key={index}
+                    className="option-button"
+                    onClick={() => handleOptionClick(index)}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <ConnectFour onGameEnd={handleConnectFourEnd} />
+      )}
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <div className="popup-content">
+              <div className="popup-emoji">🎉</div>
+              <h2 className="popup-title">Look who won yaaaayy!</h2>
+              <p className="popup-message">Lets play connect four now!!</p>
+              <button className="popup-button" onClick={handlePlayConnectFour}>
+                Play Connect 4
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup-overlay">
+          <div className="popup error-popup">
+            <div className="popup-content">
+              <div className="popup-emoji">😠</div>
+              <h2 className="popup-title">Noppp, try again</h2>
+              <button className="popup-button" onClick={handleCloseError}>
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Wrap everything in Router
+function App() {
+  return (
     <Router>
       <Routes>
-        <Route path="/gallery" element={<Gallery />} /> {/* new gallery page */}
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              {hearts.map(heart => (
-                <div
-                  key={heart.id}
-                  className="heart"
-                  style={{
-                    left: `${heart.left}%`,
-                    top: `${heart.top}%`,
-                    animationDelay: `${heart.delay}s`,
-                    animationDuration: `${heart.duration}s`
-                  }}
-                >
-                  💙
-                </div>
-              ))}
-
-              {!showConnectFour ? (
-                <div className="container">
-                  {!started ? (
-                    <>
-                      <h1 className="title">Happy V day</h1>
-                      <button className="start-button" onClick={handleStart}>
-                        Ready to test your knowledge on us?
-                      </button>
-                    </>
-                  ) : (
-                    <div className="quiz-container">
-                      <div className="question-number">
-                        Question {currentQuestion + 1} of {dummyQuestions.length}
-                      </div>
-                      <h2 className="question-text">
-                        {dummyQuestions[currentQuestion].question}
-                      </h2>
-                      <div className="options">
-                        {dummyQuestions[currentQuestion].options.map((option, index) => (
-                          <button
-                            key={index}
-                            className="option-button"
-                            onClick={() => handleOptionClick(index)}
-                          >
-                            {option}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <ConnectFour onGameEnd={handleConnectFourEnd} />
-              )}
-
-              {showPopup && (
-                <div className="popup-overlay">
-                  <div className="popup">
-                    <div className="popup-content">
-                      <div className="popup-emoji">🎉</div>
-                      <h2 className="popup-title">Look who won yaaaayy!</h2>
-                      <p className="popup-message">Lets play connect four now!!</p>
-                      <button className="popup-button" onClick={handlePlayConnectFour}>
-                        Play Connect 4
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {showErrorPopup && (
-                <div className="popup-overlay">
-                  <div className="popup error-popup">
-                    <div className="popup-content">
-                      <div className="popup-emoji">😠</div>
-                      <h2 className="popup-title">Noppp, try again</h2>
-                      <button className="popup-button" onClick={handleCloseError}>
-                        Try Again
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          }
-        />
+        <Route path="/" element={<MainApp />} />
+        <Route path="/gallery" element={<Gallery />} />
       </Routes>
     </Router>
   );
