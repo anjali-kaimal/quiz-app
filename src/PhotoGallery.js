@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './PhotoGallery.css';
 
 const photoData = [
-  { id: 1, title: 'Memory 1', image: '/1.jpg' },
-  { id: 2, title: 'Memory 2', image: '/2.jpg' },
-  { id: 3, title: 'Memory 3', image: '/3.jpg' },
-  { id: 4, title: 'Memory 4', image: '/4.jpg' },
-  { id: 5, title: 'Memory 5', image: '/5.jpg' },
-  { id: 6, title: 'Memory 6', image: '/6.jpg' }
+  { id: 1, title: 'August 2025', image: '/1.jpg' },
+  { id: 2, title: 'September 2025', image: '/2.jpg' },
+  { id: 3, title: 'November 2025', image: '/3.jpg' },
+  { id: 4, title: 'December 2025', image: '/4.jpg' },
+  { id: 5, title: 'January 2026', image: '/5.jpg' },
+  { id: 6, title: 'February 2026', image: '/6.jpg' }
 ];
 
 function PhotoGallery({ onBack }) {
