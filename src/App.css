@@ -287,11 +287,15 @@
 
 .popup-title {
   font-size: 36px;
-  color: white;
+  color: white !important;
   margin-bottom: 15px;
   font-weight: 800;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   letter-spacing: 1px;
+  -webkit-text-fill-color: white !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
 }
 
 .popup-emoji {
@@ -303,8 +307,9 @@
 
 .popup-message {
   font-size: 16px;
-  color: white;
+  color: white !important;
   margin-bottom: 20px;
+  -webkit-text-fill-color: white !important;
 }
 
 .popup-button {
